@@ -2,15 +2,22 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=p, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <main>
-        <h1>Notizen</h1>
-        <div id="notes">
-            <button type="button" class="btn-close" aria-label="Close"></button>
+        <h1>Sticky Notes</h1>
+        <br>
+        <button id="btn3" onclick="neu()">Neues Post It erstellen</button>
+        <hr class="line">
+        <div id="note">
+            <h2>Note</h2>
+            <textarea id="text"></textarea>
+            <button id="btn1" onclick="speichern()">Speichern</button>
+            <button id="btn2" onclick="loeschen()">Löschen</button>
         </div>
     </main>
+    <script src="index.js"></script>
 </body>
-</html>
