@@ -12,18 +12,19 @@ h1 {
     border-color: green;
   }
 
-#note {
+.note {
     width: 250px;
     height: 250px;
     background-color: chartreuse;  
     text-align: center;
-    padding-top: 1px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: large;
   }
 
 h2 {
     text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
 }
 
 #btn1, #btn2, #btn3 {
@@ -31,10 +32,10 @@ h2 {
     background-color: rgb(13, 97, 2);
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: small;
+    font-size: medium;
 }
 
-textarea {
+.text {
     background-color: chartreuse;
     border: 1px rgb(33, 61, 4);
     color: rgb(131, 66, 76);
@@ -45,3 +46,14 @@ textarea {
     width: 200px;
     height: 125px;
 }
+
+#notes {
+    margin: 50px;
+    border: black;
+}
+
+/*.input {
+    margin-top: 10px;
+    background-color: chartreuse;
+    text-algin: center; 
+}*/
