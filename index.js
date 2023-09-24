@@ -1,35 +1,35 @@
 "use strict"
 
+/*window.onload = loadNote;
+
+function init() {
+        document.getElementById("btn1").addEventListener('click', newNote);
+}*/
+
+function newNote() {
+        var neu = document.querySelector(".neu");
+        var note = document.createElement("div");
+        var h2 = document.createElement("h2");        
+        var text = document.createElement("textarea");
+        /*var btn1 = document.createElement("button");
+        var btn2 = document.createElement("button");*/
+
+        note.className = "note";
+        h2.textContent = "Notiz";
+
+        note.appendChild(h2);
+        note.appendChild(text);
+       /* note.appendChild(btn1);
+        note.appendChild(btn2);*/
+        neu.appendChild(note);
+
+
+}
+
+
 function speichern() {
         const textarea = document.getElementById("text");
         const text = textarea.value;
         localStorage.setItem("gespeicherterText", text);
 }
 
-window.onload = function() {
-        const textarea = document.getElementById("text");
-        const gespeicherterText = localStorage.getItem("gespeicherterText");
-
-        if (gespeicherterText) {
-            textarea.value = gespeicherterText;
-        }
-}
- 
-function loeschen() {
-        const textarea = document.getElementById("text");
-        localStorage.removeItem("gespeicherterText");
-        textarea.value = "";
-}
-
-function newNote() {
-        let newNote = document.createElement('div');
-        newNote.classList.add('note');
-    
-        newNote.innerHTML = 
-            <div class="inhalt">
-                <h2>Note</h2>
-                <textarea id="text"></textarea>
-                <button id="btn1" onclick="speichern()">Speichern</button>
-                <button id="btn2" onclick="loeschen()">Löschen</button>
-            </div>;
-    }
