@@ -12,8 +12,7 @@ function loadNotes() {
 }
 
 function createNote(title, content) {
-        let notes = document.getElementById("notes");
-
+        let notes = document.getElementById("notes")
         let liElem = document.createElement("li");
         liElem.className = "note";
 
@@ -23,6 +22,7 @@ function createNote(title, content) {
 
         let textarea = document.createElement("textarea");
         textarea.className = "content";
+        textarea.name="Name";
         textarea.textContent = content;
 
 
@@ -55,20 +55,46 @@ function addNote() {
         }
 }
 
+/*function generateId() {
+        return Math.floor(Math.random()*1000+1);
+}*/
+
+function getSavedNotes() {
+  let savedNotesJSON = localStorage.getItem("noteCont");
+  return savedNotesJSON ? JSON.parse(savedNotesJSON) : [];
+}
+
+function isNoteAlreadySaved(newNote, savedNotes) {
+  return savedNotes.some((savedNote) => {
+      return savedNote.title === newNote.title && savedNote.content === newNote.content;
+  });
+}
+    
+
 function saveNote() {
-        let hElem = document.querySelector(".h2");
-        let contentElem = document.querySelector(".content");
-       
-        let noteObj = {
-                title: hElem.textContent,
-                content: contentElem.value
-        };
+  let hElem = document.querySelector(".h2");
+  let contentElem = document.querySelector(".content");
+  if (!hElem || !contentElem) {
+      alert("Elemente nicht gefunden.");
+      return;
+  }
 
-        let savedNotes = [];
-        savedNotes = JSON.parse(localStorage.getItem("noteCont"));
-        savedNotes.push(noteObj);
+  let newNote = {
+      title: hElem.textContent,
+      content: contentElem.value,
+  };
 
-        localStorage.setItem("noteCont", JSON.stringify(savedNotes));//JSON.stringify = konvertiert JS-Objekte in JSON-Strings
+  let savedNotes = getSavedNotes();
+
+  if (isNoteAlreadySaved(newNote, savedNotes)) {
+      // Die Notiz wurde bereits gespeichert, zeige eine Info an
+      alert("Diese Notiz wurde bereits gespeichert.");
+  } else {
+      // Die Notiz ist neu, speichere sie
+      savedNotes.push(newNote);
+      localStorage.setItem("noteCont", JSON.stringify(savedNotes));
+      alert("Notiz erfolgreich gespeichert.");
+  }
 }
 
 function deleteNote() {
@@ -81,7 +107,7 @@ function deleteNote() {
         for (let i = 0; i < savedNotes.length; i++) {
             if (savedNotes[i].title === hElem.textContent && savedNotes[i].content === contentElem.value) {
                 var indexToDelete = i;
-                break; // Wir haben die zu löschende Notiz gefunden, brechen Sie die Schleife ab.
+                break; //Die zu löschende Notiz wurde gefunde und die Schleife ab.
             }
         }
     
@@ -94,3 +120,50 @@ function deleteNote() {
             this.parentElement.remove();
         }
     }
+
+    /*Beginn ServiceWorker
+    function handleRegistration(registration) {
+        registration.addEventListener("updatefound", function () {
+          if (registration.installing) {
+            const worker = registration.installing;
+            worker.addEventListener("statechange", function () {
+              if (worker.state === "installed") {
+                handleUpdate(worker);
+              }
+            });
+          } else if (registration.waiting) {
+            const worker = registration.waiting;
+            if (worker.state === "installed") {
+              handleUpdate(worker);
+            }
+          }
+        });
+      }
+      
+      function handleUpdate(worker) {
+        if (navigator.serviceWorker.controller) {
+          const modal = document.getElementById("service-worker");
+          const button = document.getElementById("service-worker-control");
+          button.addEventListener("click", function () {
+            worker.postMessage({ action: "skipWaiting" });
+            modal.style.display = "none";
+          });
+          modal.style.display = "block";
+        }
+      }
+
+      function registerServiceWorker() {
+        if ("serviceWorker" in navigator) {
+          let refreshing;
+          navigator.serviceWorker.addEventListener("controllerchange", function () {
+            if (refreshing) return;
+            window.location.reload();
+            refreshing = true;
+          });
+          navigator.serviceWorker
+            .register("/notes/sw.js", { scope: "/notes/ " })
+            .then((registration) => handleRegistration(registration))
+            .catch((error) => console.log("Service Worker registration failed!", error));
+        }
+      }*/
+      
